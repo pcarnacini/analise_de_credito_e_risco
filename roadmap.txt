@@ -1,0 +1,61 @@
+1. Definição do Caso de Uso
+
+Objetivo: Construir um pipeline para análise de crédito e risco bancário.
+
+Perguntas que o projeto responderá:
+
+Qual a correlação entre o tempo de vencimento e o risco de inadimplência?
+Quais variáveis mais influenciam o risco de inadimplência?
+Qual a distribuição da carteira de crédito em função do risco de crédito?
+Qual o perfil dos clientes com maior risco de inadimplência?
+Como as categorias de risco são distribuídas?
+
+2. Extração dos Dados (Extract)
+
+Fonte: Banco Central (SCR)
+Ferramentas: requests, beautifulSoup
+Armazenamento inicial: S3 (raw data)
+
+3. Transformação dos Dados (Transform)
+
+Tecnologias: Pandas + DuckDB
+Processos de transformação:
+Tratamento de dados faltantes e outliers
+Normalização e agregação dos dados
+Categorização de risco com base em critérios financeiros
+Geração de novas features para modelagem de risco
+Armazenamento: Dados transformados salvos no DuckDB antes de serem carregados no Redshift
+
+4. Carregamento dos Dados (Load)
+
+Destino: Postgres
+Processo:
+Pipeline salva os dados transformados no Postgres
+Airflow aciona a carga dos dados para o Postgres
+
+5. Construção do Dashboard
+
+Tecnologia: Streamlit
+Principais visualizações:
+Score médio de crédito por faixa etária
+Distribuição de clientes por categoria de risco
+Evolução da taxa de inadimplência
+Comparação entre aprovados e reprovados
+
+6. Automação e Orquestração
+
+Airflow:
+DAG para extração da API e armazenamento no S3
+DAG para processamento no DuckDB e envio ao Redshift
+DAG para atualização do dashboard
+
+7. Documentação e Deploy
+
+Criar um README.md com:
+Objetivo do projeto
+Ferramentas utilizadas
+Estrutura do pipeline
+Perguntas que o dashboard responde
+Instruções para rodar o projeto
+Publicar no GitHub
+
